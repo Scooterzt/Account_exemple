@@ -1,0 +1,9 @@
+@model Transactions
+<p>Deposit/Withdraw: </p>
+<form asp-action="addTransaction" asp-controller="Home" method="post">
+    <div class="form-group">
+        <span asp-validation-for="Amount"></span>
+        <input asp-for="Amount" class="form-group" placeholder="Amount">
+    </div>
+    <button type="submit" class="btn btn-primary">Add Chef</button>
+</form>

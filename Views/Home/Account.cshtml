@@ -1,0 +1,31 @@
+@model UserTransaction
+<h2>Welcome, @Model.user.FirstName</h2>
+<a href="logout">Log Out!</a>
+<h4>Current balance: $@ViewBag.sum.ToString("n2")</h4>
+<p>Deposit/Withdraw: </p>
+<form asp-action="addTransaction" asp-controller="Home" method="post">
+    <div class="form-group">
+        <span asp-validation-for="transactions.Amount"></span>
+        <input asp-for="transactions.Amount" class="form-group" placeholder="Amount">
+        <input type="hidden" asp-for="transactions.UserId" value="@Model.user.UserId">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<p> </p><br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+        <th scope="col">Amount</th>
+        <th scope="col">Date</th>
+        </tr>
+    </thead>
+@foreach (Transactions i in @Model.user.CreatedTransactions.OrderByDescending(t=>t.TransactionsId)){
+    <tbody>
+      <tr>
+        <th>$@i.Amount.ToString("n2")</th>
+        <td>@i.CreatedAt.ToString("dd/MM/yyyy")</td>
+        </tr>
+    </tbody>  
+  } 
+</table>
+
